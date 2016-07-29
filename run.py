@@ -6,29 +6,31 @@ import nibabel
 import numpy
 from glob import glob
 
-parser = argparse.ArgumentParser(description='Skullstrip and average.')
-parser.add_argument('--bids-dir', help='The directory with the input dataset'
+parser = argparse.ArgumentParser(description='Example BIDS App entrypoint script.')
+parser.add_argument('bids_dir', help='The directory with the input dataset '
                     'formatted according to the BIDS standard.')
-parser.add_argument('--output-dir', help='The directory where the output files '
+parser.add_argument('output_dir', help='The directory where the output files '
                     'should be stored.')
-parser.add_argument('--participant-label', help='(optional) label of the '
-                    'participant that should be analyzed. The label corresponds '
-                    'to sub-<participant_label> from the BIDS spec (so it does '
-                    'not include "sub-"). If this parameter is not provided all '
-                    'subjects should be analyzed. Multiple participants can be '
-                    'specified with a comma separated list.')
-parser.add_argument('--participants-output-dir', help='directory with outputs '
+group = parser.add_mutually_exclusive_group()
+group.add_argument('--participant_label', help='(optional - first level only) '
+                   'label of the participant that should be analyzed. The label '
+                   'corresponds to sub-<participant_label> from the BIDS spec '
+                   '(so it does not include "sub-"). If this parameter is not '
+                   'provided all subjects should be analyzed. Multiple '
+                   'participants can be specified with a space separated list.',
+                   nargs="+")
+group.add_argument('--first_level_results', help='(group level only) directory with outputs '
                     'from a set of participants which will be used as input to '
                     'the group level (this is where first level pipelines store '
-                    'outputs via --output-dir).')
+                    'outputs via output_dir).')
 
 args = parser.parse_args()
 
 
-if not args.participants_output_dir:
+if not args.first_level_results:
     subjects_to_analyze = []
     if args.participant_label:
-        subjects_to_analyze = [args.participant_label, ]
+        subjects_to_analyze = args.participant_label
     else:
         subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
         subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
@@ -42,7 +44,7 @@ if not args.participants_output_dir:
             subprocess.run(cmd, shell=True, check=True)
 else:
     brain_sizes = []
-    for brain_file in glob(os.path.join(args.participants_output_dir, "*.nii*")):
+    for brain_file in glob(os.path.join(args.first_level_results, "*.nii*")):
         data = nibabel.load(brain_file).get_data()
         brain_sizes.append((data != 0).sum())
 
