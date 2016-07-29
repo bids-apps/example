@@ -27,14 +27,18 @@ group.add_argument('--first_level_results', help='(group level only) directory w
 args = parser.parse_args()
 
 
+# running first level
 if not args.first_level_results:
     subjects_to_analyze = []
+    # only for a subset of subjects
     if args.participant_label:
         subjects_to_analyze = args.participant_label
+    # for all subjects
     else:
         subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
         subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
 
+    # find all T1s and skullstrip them
     for subject_label in subjects_to_analyze:
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
                                          "anat", "*_T1w.nii*")):
@@ -42,10 +46,13 @@ if not args.first_level_results:
             cmd = "bet %s %s"%(T1_file, os.path.join(args.output_dir, out_file))
             print(cmd)
             subprocess.run(cmd, shell=True, check=True)
+
+# running group level
 else:
     brain_sizes = []
     for brain_file in glob(os.path.join(args.first_level_results, "*.nii*")):
         data = nibabel.load(brain_file).get_data()
+        # calcualte average mask size in voxels
         brain_sizes.append((data != 0).sum())
 
     with open(os.path.join(args.output_dir, "avg_brain_size.txt"), 'w') as fp:
