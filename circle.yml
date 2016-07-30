@@ -10,7 +10,7 @@ dependencies:
 
   override:
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
-    - ./git-set-file-times
+    - bash git-set-file-times
     - docker build -t bids/example .
     - mkdir -p ~/docker; docker save "bids/example" > ~/docker/image.tar
 
