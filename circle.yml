@@ -1,0 +1,26 @@
+machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+
+  override:
+    - pip install docker-compose
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+    - ./scripts/git-set-file-times
+    - docker build -t bids/example .
+    - mkdir -p ~/docker; docker save "bids/example" > ~/docker/image.tar
+
+test:
+  override:
+    - echo "pass"
+
+#deployment:
+#  hub:
+#    branch: master
+#    commands:
+#      - if [[ -n "$DOCKER_PASS" ]]; then docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS && docker push $DOCKER_REPO; fi

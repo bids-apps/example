@@ -35,7 +35,7 @@ else:
 	subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
 	subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
 
-# running first level
+# running participant level
 if args.analysis_level == "participant":
 
 	# find all T1s and skullstrip them
