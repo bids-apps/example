@@ -16,7 +16,7 @@ dependencies:
     - docker build -t bids/example .
     - mkdir -p ~/docker; docker save "bids/example" > ~/docker/image.tar
     - wget https://raw.githubusercontent.com/singularityware/singularity-python/1373b2b9b531cfac86ac93ff0f564b76a73a4d8c/examples/docker2singularity/docker2singularity.sh
-    - bash docker2singularity.sh bids/example
+    - sudo bash docker2singularity.sh bids/example
 
 test:
   override:
