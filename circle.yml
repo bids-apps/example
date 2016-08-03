@@ -11,16 +11,13 @@ dependencies:
 
   override:
     - if [[ ! -d ~/data/ds114_test1 ]]; then wget -c -P ${HOME}/downloads/ "https://googledrive.com/host/0B2JWN60ZLkgkMEw4bW5VUUpSdFU/ds114_test1.tar" && mkdir -p ${HOME}/data && tar xf ${HOME}/downloads/ds114_test1.tar -C ${HOME}/data; fi
-    - wget https://github.com/gmkurtzer/singularity/archive/2.1.tar.gz -O singularity.tar.gz
-    - tar xvf singularity.tar.gz && cd singularity-2.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
-    - /usr/bin/perl -w ./git-set-file-times
     - docker build -t bids/example .
     - mkdir -p ~/docker; docker save "bids/example" > ~/docker/image.tar
 
 test:
   override:
-    - docker run -i --rm -v ${HOME}/data/ds114_test1:/bids_dataset ${HOME}/outputs:/outputs bids/example /bids_dataset /outputs participant --participant_label 01
+    - docker run -i --rm -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs:/outputs bids/example /bids_dataset /outputs participant --participant_label 01
 
 #deployment:
 #  hub:
