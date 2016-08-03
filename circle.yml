@@ -7,16 +7,18 @@ machine:
 dependencies:
   cache_directories:
     - "~/docker"
+    - "~/data"
 
   override:
+    - wget -c -P ${HOME}/downloads/ "https://googledrive.com/host/0B2JWN60ZLkgkMEw4bW5VUUpSdFU/ds114_test1.tar"
+    - mkdir -p ${HOME}/scratch/data/
+    - tar xf ${HOME}/downloads/ds114_test1.tar -C ${HOME}/scratch/data
     - wget https://github.com/gmkurtzer/singularity/archive/2.1.tar.gz -O singularity.tar.gz
     - tar xvf singularity.tar.gz && cd singularity-2.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
     - /usr/bin/perl -w ./git-set-file-times
     - docker build -t bids/example .
     - mkdir -p ~/docker; docker save "bids/example" > ~/docker/image.tar
-    - wget https://raw.githubusercontent.com/singularityware/singularity-python/1373b2b9b531cfac86ac93ff0f564b76a73a4d8c/examples/docker2singularity/docker2singularity.sh
-    - sudo bash docker2singularity.sh bids/example
 
 test:
   override:
