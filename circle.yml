@@ -19,7 +19,8 @@ dependencies:
 test:
   override:
     - docker run -i -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs:/outputs bids/example /bids_dataset /outputs participant --participant_label 01
-
+    - docker run -i -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs:/outputs bids/example /bids_dataset /outputs participant --participant_label 02
+    - docker run -i -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs:/outputs bids/example /bids_dataset /outputs group
 #deployment:
 #  hub:
 #    branch: master
