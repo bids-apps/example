@@ -1,0 +1,15 @@
+sudo: required
+
+
+services:
+  - docker
+
+before_install:
+- wget https://github.com/gmkurtzer/singularity/archive/2.1.tar.gz -O singularity.tar.gz
+- tar xvf singularity.tar.gz && cd singularity-2.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install && cd -
+- sudo mkdir -p /usr/local/var/singularity/mnt
+- docker build -t bids/example .
+- wget https://raw.githubusercontent.com/singularityware/singularity-python/1373b2b9b531cfac86ac93ff0f564b76a73a4d8c/examples/docker2singularity/docker2singularity.sh
+- sudo bash docker2singularity.sh bids/example
+
+script:
