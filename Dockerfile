@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 # Enable NeuroDebian repository (if needed)
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive NEURODEBIAN_ENABLE=yes NEURODEBIAN_MIRROR=origin \
+    && DEBIAN_FRONTEND=noninteractive NEURODEBIAN_ENABLE=yes NEURODEBIAN_MIRROR=origin NEURODEBIAN_FLAVOR=full \
        apt-get install -y neurodebian
 
 # Run apt-get calls
