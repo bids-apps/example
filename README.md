@@ -1,12 +1,27 @@
-## An example BIDS App
+## An example BIDS App (template repository)
 Every BIDS App needs to follow a minimal set of command arguments common across
 all of the Apps. This allows users and developers to easily use and integrate
 BIDS Apps with their environment.
 
 This is an minimalistic example BIDS App consisting of a Dockerfile and simple
 entrypoint script (written in this case in Python) accepting the standard BIDS
-Apps command line arguments.
+Apps command line arguments. This repository can be used as a template for new BIDS Apps.
 
+For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
+
+### Description
+This is a placeholder for a shaort description explaining the user what your App is doing.
+
+### Documentation
+Provide a link to a documention of your pipeline.
+
+### How to report errors
+Provide instruction for users on how to get help and report errors.
+
+### Acknowledgements
+Describe how would you like users to acknoledge the use of your App in their papers (citation, a paragraph that should be copy pasted etc.)
+
+### Usage
 This App has the following comman line arguments:
 
 		usage: run.py [-h]
@@ -53,4 +68,9 @@ can be run:
 		bids/example \
 		/bids_dataset /outputs group
 
-For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
+### Special considerations
+Describe if your app has some special requirements. For example:
+
+- Multiple map reduce steps (participant, group, participant2, group2 etc.)
+- Unusual memory requirements
+- etc.
