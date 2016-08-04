@@ -1,9 +1,10 @@
 FROM ubuntu:16.04
 
+# Enable NeuroDebian repository (if needed)
 RUN apt-get update \
-    && apt-get install -y wget
-RUN wget -O /etc/apt/sources.list.d/neurodebian.sources.list http://neuro.debian.net/lists/xenial.us-ca.full
-RUN apt-key adv --recv-keys --keyserver hkp://pgp.mit.edu:80 0xA5D32F012649A5A9
+    && DEBIAN_FRONTEND=noninteractive \
+       NEURODEBIAN_ENABLE=yes NEURODEBIAN_MIRROR=origin NEURODEBIAN_FLAVOR=full NEURODEBIAN_UPDATE=0 \
+       apt-get install -y neurodebian
 
 # Run apt-get calls
 RUN apt-get update \
