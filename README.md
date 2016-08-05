@@ -1,5 +1,3 @@
-[![](https://badge.imagelayers.io/centurylink/imagelayers-api.svg)](https://imagelayers.io/?images=bids/example 'Get your own badge on imagelayers.io')
-
 ## An example BIDS App (template repository)
 Every BIDS App needs to follow a minimal set of command arguments common across
 all of the Apps. This allows users and developers to easily use and integrate
