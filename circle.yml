@@ -4,7 +4,7 @@ general:
     - "~/outputs2"
 machine:
   services:
-    - docker
+    - docker #don't use 1.10 - caching is broken
 
 dependencies:
   cache_directories:
