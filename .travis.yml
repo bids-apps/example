@@ -9,7 +9,7 @@ services:
 
 before_install:
 - if [[ -e $HOME/docker/image.tar ]]; then docker load -i $HOME/docker/image.tar; fi
-- docker pull filo/docker2singularity:1.9.1
+- docker pull filo/docker2singularity:1.8.3
 - docker build -t bids/example .
 - mkdir -p $HOME/docker; docker save "bids/example" > $HOME/docker/image.tar
 
