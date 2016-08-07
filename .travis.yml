@@ -9,9 +9,9 @@ services:
 
 before_install:
 - if [[ -e $HOME/docker/image.tar ]]; then docker load -i $HOME/docker/image.tar; fi
-- docker pull filo/docker2singularity
+- docker pull filo/docker2singularity:1.9.1
 - docker build -t bids/example .
 - mkdir -p $HOME/docker; docker save "bids/example" > $HOME/docker/image.tar
 
 script:
-- docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME:/output --privileged -t --rm filo/docker2singularity bids/example
+- docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME:/output --privileged -t --rm filo/docker2singularity:1.9.1 bids/example
