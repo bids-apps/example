@@ -14,4 +14,4 @@ before_install:
 - mkdir -p $HOME/docker; docker save "bids/example" > $HOME/docker/image.tar
 
 script:
-- docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME:/output --privileged -t --rm filo/docker2singularity:1.9.1 bids/example
+- docker run -v /var/run/docker.sock:/var/run/docker.sock -v $HOME:/output --privileged -t --rm filo/docker2singularity:1.8.3 bids/example
