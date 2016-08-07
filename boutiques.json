@@ -1,0 +1,68 @@
+{
+  "name": "example",
+  "tool-version": "0.2",
+  "description": "Example BIDS App",
+  "command-line": "run.py BIDS_DIR OUTPUT_DIR ANALYSIS_LEVEL PARTICIPANT_LABEL",
+  "docker-image": "bids/example",
+  "docker-index": "http://index.docker.io",
+  "schema-version": "0.3"
+  "inputs": [
+    {
+      "id": "bids_dir",
+      "name": "Dataset path",
+      "type": "String",
+      "description": "Path to the input dataset formatted in BIDS",
+      "command-line-key": "BIDS_DIR",
+      "list": false,
+      "optional": false,
+      "integer": false
+    },
+    {
+      "id": "output_dir",
+      "name": "Output directory",
+      "type": "String",
+      "description": "Path to the folder where the outputs will be stored",
+      "command-line-key": "OUTPUT_DIR",
+      "list": false,
+      "optional": false,
+      "integer": false
+    },
+    {
+      "id": "analysis_level",
+      "name": "Analysis level",
+      "type": "Enum",
+      "description": "Which level the analysis should be performed at.",
+      "command-line-key": "ANALYSIS_LEVEL",
+      "list": false,
+      "optional": false,
+      "command-line-flag-separator": " ",
+      "enum-value-choices": [
+        "participant",
+        "group"
+      ],
+      "integer": false
+    },
+    {
+      "id": "participant_label",
+      "name": "Participant label",
+      "type": "String",
+      "description": "Restrict the analysis to the following participants",
+      "command-line-key": "PARTICIPANT_LABEL",
+      "list": true,
+      "optional": true,
+      "command-line-flag": "--participant_label",
+      "integer": false,
+      "min-list-entries": 1
+    }
+  ],
+  "output-files": [
+    {
+      "id": "output_dir",
+      "name": "Output directory",
+      "description": "Output directory",
+      "command-line-key": "OUTPUT_DIR",
+      "list": false,
+      "optional": false
+    }
+  ]
+}
