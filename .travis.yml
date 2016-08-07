@@ -1,0 +1,15 @@
+sudo: required
+
+cache:
+  directories:
+  - $HOME/docker
+
+services:
+  - docker
+
+before_install:
+- if [[ -e $HOME/docker/image.tar ]]; then docker load -i $HOME/docker/image.tar; fi
+- docker build -t bids/example .
+- mkdir -p $HOME/docker; docker save "bids/example" > $HOME/docker/image.tar
+
+script:
