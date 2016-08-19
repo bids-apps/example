@@ -43,7 +43,7 @@ if args.analysis_level == "participant":
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
                                          "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
             out_file = os.path.split(T1_file)[-1].replace("_T1w.", "_brain.")
-            cmd = "bet %s %s"%(T1_file, os.path.join(args.output_dir, out_file))
+            cmd = "bet %s %s -f 0.7"%(T1_file, os.path.join(args.output_dir, out_file))
             print(cmd)
             subprocess.run(cmd, shell=True, check=True)
 
