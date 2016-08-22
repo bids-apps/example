@@ -10,7 +10,8 @@ def run(command, env={}):
     merged_env = os.environ
     merged_env.update(env)
     process = subprocess.Popen(command, stdout=subprocess.PIPE,
-                               err=subprocess.STDOUT, shell=True, env=merged_env)
+                               stderr=subprocess.STDOUT, shell=True,
+                               env=merged_env)
     while True:
         line = process.stdout.readline()
         line = str(line, 'utf-8')[:-1]
