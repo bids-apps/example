@@ -6,6 +6,20 @@ import nibabel
 import numpy
 from glob import glob
 
+def run(command, env={}):
+    merged_env = os.environ
+    merged_env.update(env)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE,
+                               err=subprocess.STDOUT, shell=True, env=merged_env)
+    while True:
+        line = process.stdout.readline()
+        line = str(line, 'utf-8')[:-1]
+        print(line)
+        if line == '' and process.poll() != None:
+            break
+    if process.returncode != 0:
+        raise Exception("Non zero return code: %d"%process.returncode)
+
 parser = argparse.ArgumentParser(description='Example BIDS App entrypoint script.')
 parser.add_argument('bids_dir', help='The directory with the input dataset '
                     'formatted according to the BIDS standard.')
@@ -45,7 +59,7 @@ if args.analysis_level == "participant":
             out_file = os.path.split(T1_file)[-1].replace("_T1w.", "_brain.")
             cmd = "bet %s %s"%(T1_file, os.path.join(args.output_dir, out_file))
             print(cmd)
-            subprocess.run(cmd, shell=True, check=True)
+            run(cmd)
 
 # running group level
 elif args.analysis_level == "group":
