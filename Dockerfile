@@ -26,10 +26,6 @@ RUN apt-get install -y python3-pip
 RUN pip3 install nibabel
 RUN mkdir -p /code
 
-RUN mkdir /oasis
-RUN mkdir /projects
-RUN mkdir /scratch
-RUN mkdir /local-scratch
 COPY run.py /code/run.py
 
 ENTRYPOINT ["/code/run.py"]
