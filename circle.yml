@@ -22,20 +22,28 @@ dependencies:
 
 test:
   override:
-    - docker run -ti --rm -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs1:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 01 :
+    # participant level tests for single session dataset
+    - docker run -ti --rm --read-only --tmpfs /tmp --tmpfs /var/tmp -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs1:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 01 :
         timeout: 21600
-    - docker run -ti --rm -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs1:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 02 :
+    - docker run -ti --rm --read-only --tmpfs /tmp --tmpfs /var/tmp -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs1:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 02 :
         timeout: 21600
-    - docker run -ti --rm -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs1:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs group :
+    # group level test for single session dataset
+    - docker run -ti --rm --read-only --tmpfs /tmp --tmpfs /var/tmp -v ${HOME}/data/ds114_test1:/bids_dataset -v ${HOME}/outputs1:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs group :
         timeout: 21600
-    - docker run -ti --rm -v ${HOME}/data/ds114_test2:/bids_dataset -v ${HOME}/outputs2:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 01 :
+    # participant level tests for a longitudinal dataset
+    - docker run -ti --rm --read-only --tmpfs /tmp --tmpfs /var/tmp -v ${HOME}/data/ds114_test2:/bids_dataset -v ${HOME}/outputs2:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 01 :
         timeout: 21600
-    - docker run -ti --rm -v ${HOME}/data/ds114_test2:/bids_dataset -v ${HOME}/outputs2:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 02 :
+    - docker run -ti --rm --read-only --tmpfs /tmp --tmpfs /var/tmp -v ${HOME}/data/ds114_test2:/bids_dataset -v ${HOME}/outputs2:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 02 :
         timeout: 21600
-    - docker run -ti --rm -v ${HOME}/data/ds114_test2:/bids_dataset -v ${HOME}/outputs2:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs group :
+    # group level test for a longitudinal dataset
+    - docker run -ti --rm --read-only --tmpfs /tmp --tmpfs /var/tmp -v ${HOME}/data/ds114_test2:/bids_dataset -v ${HOME}/outputs2:/outputs bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs group :
         timeout: 21600
-#deployment:
-#  hub:
-#    branch: master
-#    commands:
-#      - if [[ -n "$DOCKER_PASS" ]]; then docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS && docker push $DOCKER_REPO; fi
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - if [[ -n "$DOCKER_PASS" ]]; then docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS && docker push bids/${CIRCLE_PROJECT_REPONAME}:latest; fi :
+          timeout: 21600
+      - if [[ -n "$DOCKER_PASS" ]]; then docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS && docker tag bids/${CIRCLE_PROJECT_REPONAME} bids/${CIRCLE_PROJECT_REPONAME}:V$CIRCLE_BUILD_NUM-${CIRCLE_SHA1:0:6} && docker push bids/${CIRCLE_PROJECT_REPONAME}:V$CIRCLE_BUILD_NUM-${CIRCLE_SHA1:0:6}; fi :
+          timeout: 21600
