@@ -7,9 +7,8 @@ RUN apt-get update && \
     apt-get remove -y python3-pip && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir -p /code
-COPY run.py /code/run.py
+COPY run.py /run.py
 
 COPY version /version
 
-ENTRYPOINT ["/code/run.py"]
+ENTRYPOINT ["/run.py"]
