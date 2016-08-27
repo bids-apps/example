@@ -6,7 +6,8 @@ import nibabel
 import numpy
 from glob import glob
 
-__version__ = '0.0.1'
+__version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                'version')).read()
 
 def run(command, env={}):
     merged_env = os.environ
