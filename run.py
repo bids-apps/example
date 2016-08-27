@@ -6,6 +6,8 @@ import nibabel
 import numpy
 from glob import glob
 
+__version__ = '0.0.1'
+
 def run(command, env={}):
     merged_env = os.environ
     merged_env.update(env)
@@ -38,6 +40,9 @@ parser.add_argument('--participant_label', help='The label(s) of the participant
                    'provided all subjects should be analyzed. Multiple '
                    'participants can be specified with a space separated list.',
                    nargs="+")
+parser.add_argument('-v', '--version', action='version',
+                    version='BIDS-App example version {}'.format(__version__))
+
 
 args = parser.parse_args()
 
