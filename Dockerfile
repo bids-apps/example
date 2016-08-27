@@ -10,4 +10,6 @@ RUN apt-get update && \
 RUN mkdir -p /code
 COPY run.py /code/run.py
 
+COPY version /version
+
 ENTRYPOINT ["/code/run.py"]
