@@ -47,6 +47,8 @@ parser.add_argument('-v', '--version', action='version',
 
 args = parser.parse_args()
 
+run('bids-validator %s'%args.bids_dir)
+
 subjects_to_analyze = []
 # only for a subset of subjects
 if args.participant_label:
