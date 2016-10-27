@@ -7,6 +7,8 @@ RUN apt-get update && \
     apt-get remove -y python3-pip && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ENV PYTHONPATH=""
+
 COPY run.py /run.py
 
 COPY version /version
