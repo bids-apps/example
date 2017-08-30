@@ -36,7 +36,7 @@
 	"type" : "String",
 	"optional" : false,
 	"value-key" : "[ANALYSIS_LEVEL]",
-	"value-choices" : ["participant"],
+	"value-choices" : ["participant", "group"],
 	"description": "Level of the analysis that will be performed. Multiple participant level analyses can be run independently (in parallel)."
     },  {
 	"id" : "participant_label",
