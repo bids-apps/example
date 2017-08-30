@@ -44,8 +44,6 @@
 	"type" : "String",
 	"value-key": "[PARTICIPANT_LABEL]",
 	"command-line-flag": "--participant_label",
-	"minimum": 1,
-	"integer": true,
 	"list" : true,
 	"optional": true,
 	"description": "The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label> from the BIDS spec (so it does not include \"sub-\"). If this parameter is not provided all subjects will be analyzed. Multiple participants can be specified with a space separated list."
