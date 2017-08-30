@@ -41,9 +41,9 @@
     },  {
 	"id" : "participant_label",
 	"name" : "Participant label",
-	"type" : "Number",
+	"type" : "String",
 	"value-key": "[PARTICIPANT_LABEL]",
-	"command-line-flag": "--participant_label<",
+	"command-line-flag": "--participant_label",
 	"minimum": 1,
 	"integer": true,
 	"list" : true,
