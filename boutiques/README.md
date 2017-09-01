@@ -1,4 +1,4 @@
-# Boutiques descriptors
+# Boutiques descriptor
 
 This directory contains a
 [Boutiques](https://github.com/boutiques/boutiques) descriptor for the
