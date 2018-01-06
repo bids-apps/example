@@ -41,7 +41,7 @@ parser.add_argument('--participant_label', help='The label(s) of the participant
                    'provided all subjects should be analyzed. Multiple '
                    'participants can be specified with a space separated list.',
                    nargs="+")
-parser.add_argument('--validate', help='Whether or not to perform BIDS dataset validation'
+parser.add_argument('--validate', help='Whether or not to perform BIDS dataset validation',
                    action='store_true')
 parser.add_argument('-v', '--version', action='version',
                     version='BIDS-App example version {}'.format(__version__))
