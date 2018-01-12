@@ -41,13 +41,16 @@ parser.add_argument('--participant_label', help='The label(s) of the participant
                    'provided all subjects should be analyzed. Multiple '
                    'participants can be specified with a space separated list.',
                    nargs="+")
+parser.add_argument('--skip_bids_validator', help='Whether or not to perform BIDS dataset validation',
+                   action='store_true')
 parser.add_argument('-v', '--version', action='version',
                     version='BIDS-App example version {}'.format(__version__))
 
 
 args = parser.parse_args()
 
-run('bids-validator %s'%args.bids_dir)
+if not args.skip_bids_validator:
+    run('bids-validator %s'%args.bids_dir)
 
 subjects_to_analyze = []
 # only for a subset of subjects
