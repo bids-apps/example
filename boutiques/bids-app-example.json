@@ -50,8 +50,7 @@
             "type": "String",
             "value-choices": [
                 "participant",
-                "group",
-                "session"
+                "group"
             ],
             "value-key": "ANALYSIS_LEVEL"
         },
