@@ -7,18 +7,18 @@ This is a minimalist example of a BIDS App consisting of a Dockerfile and a simp
 entry point script (written in this case in Python) accepting the standard BIDS
 Apps command line arguments. This repository can be used as a template for new BIDS Apps.
 
-For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
+For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/).
 
 ### Description
 This is a placeholder for a short description explaining to the user what your App will doing.
 
 ### Documentation
-Provide a link to the documention of your pipeline.
+Provide a link to the documentation of your pipeline.
 
 ### How to report errors
 Provide instructions for users on how to get help and report errors.
 
-### Acknowledgements
+### Acknowledgments
 Describe how would you would like users to acknowledge use of your App in their papers (citation, a paragraph that can be copy pasted, etc.)
 
 ### Usage
