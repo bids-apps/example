@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     machine:
-      image: circleci/classic:latest
+      image: cimg/base:2022.04
 
     steps:
       - checkout
