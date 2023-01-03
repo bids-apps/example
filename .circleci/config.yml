@@ -16,31 +16,29 @@ jobs:
     - run:
         name: 'Get test data: ds114_test1'
         command: |
-          if [[ ! -d ~/data/ds114_test1 ]]; \
-            then wget -c -O ${HOME}/ds114_test1.tar "https://osf.io/download/zerfq/" && \
-            mkdir -p ${HOME}/data && tar xf ${HOME}/ds114_test1.tar -C ${HOME}/data;
+          if [[ ! -d ~/data/ds114_test1 ]]; then
+            wget -c -O ${HOME}/ds114_test1.tar "https://osf.io/download/zerfq/" && \
+            mkdir -p ${HOME}/data && \
+            tar xf ${HOME}/ds114_test1.tar -C ${HOME}/data;
           fi
     - run:
         name: 'Get test data: ds114_test2'
         command: |
-          if [[ ! -d ~/data/ds114_test2 ]]; \
-            then wget -c -O ${HOME}/ds114_test2.tar "https://osf.io/download/eg4ma/" && \
-            mkdir -p ${HOME}/data && tar xf ${HOME}/ds114_test2.tar -C ${HOME}/data;
+          if [[ ! -d ~/data/ds114_test2 ]]; then
+            wget -c -O ${HOME}/ds114_test2.tar "https://osf.io/download/eg4ma/" && \
+            mkdir -p ${HOME}/data && \
+            tar xf ${HOME}/ds114_test2.tar -C ${HOME}/data;
           fi
     - run:
+        name: Build Docker image
         command: |
           if [[ -e ~/docker/image.tar ]]; \
             then docker load -i ~/docker/image.tar;
           fi
-    - run: git describe --tags --always > version
-    - run:
-        name: Build image
-        command: docker build -t bids/${CIRCLE_PROJECT_REPONAME,,} .
-        no_output_timeout: 6h
-    - run:
-        name: Save image
-        command: |
-          mkdir -p ~/docker; docker save "bids/${CIRCLE_PROJECT_REPONAME,,}" > ~/docker/image.tar
+          git describe --tags --always > version
+          docker build -t bids/${CIRCLE_PROJECT_REPONAME,,} .
+          mkdir -p ${HOME}/docker
+          docker save "bids/${CIRCLE_PROJECT_REPONAME,,}" > ~/docker/image.tar
 
     - save_cache:
         key: my_cache
@@ -54,8 +52,8 @@ jobs:
         - image.tar
 
   test:
-    docker:
-    - image: circleci/buildpack-deps:stretch
+    machine:
+      image: ubuntu-2204:2022.10.2
 
     parameters:
       dataset:
@@ -115,8 +113,9 @@ jobs:
         path: ~/output2
 
   deploy:
-    docker:
-    - image: circleci/buildpack-deps:stretch
+    machine:
+      image: ubuntu-2204:2022.10.2
+
     steps:
     - attach_workspace:
         at: /tmp/workspace
