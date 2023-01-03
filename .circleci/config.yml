@@ -68,8 +68,8 @@ jobs:
     - run: mkdir -p ${HOME}/outputs1
     - run: mkdir -p ${HOME}/outputs2
 
-        # print version
     - run:
+        name: print version
         command: |
           docker run -ti --rm --read-only \
             -v /tmp:/tmp \
