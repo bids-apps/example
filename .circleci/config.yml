@@ -151,12 +151,18 @@ jobs:
     - setup_remote_docker
     - run: docker load -i /tmp/workspace/image.tar
     - run:
-        command: if [[ -n "$DOCKER_PASS" ]]; then docker login -u $DOCKER_USER -p $DOCKER_PASS && \ docker push bids/${CIRCLE_PROJECT_REPONAME,,}:latest;
-          \ fi
+        command: |
+          if [[ -n "$DOCKER_PASS" ]]; then
+            docker login -u $DOCKER_USER -p $DOCKER_PASS && \ docker push bids/${CIRCLE_PROJECT_REPONAME,,}:latest;
+          fi
         no_output_timeout: 6h
     - run:
-        command: if [[ -n "$DOCKER_PASS" ]]; then docker login -u $DOCKER_USER -p $DOCKER_PASS && \ docker tag bids/${CIRCLE_PROJECT_REPONAME,,} bids/${CIRCLE_PROJECT_REPONAME,,}:$CIRCLE_TAG
-          && \ docker push bids/${CIRCLE_PROJECT_REPONAME,,}:$CIRCLE_TAG; fi
+        command: |
+          if [[ -n "$DOCKER_PASS" ]]; then
+            docker login -u $DOCKER_USER -p $DOCKER_PASS && \
+            docker tag bids/${CIRCLE_PROJECT_REPONAME,,} bids/${CIRCLE_PROJECT_REPONAME,,}:$CIRCLE_TAG
+            docker push bids/${CIRCLE_PROJECT_REPONAME,,}:$CIRCLE_TAG;
+          fi
         no_output_timeout: 6h
 
 workflows:
