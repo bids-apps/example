@@ -15,13 +15,13 @@ jobs:
         name: Get test data ds114_test1
         command: |
           wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/utils/get_data_from_osf.sh
-          bash get_data_from_osf.sh ds114_test1 
-          bash get_data_from_osf.sh ds114_test2 
+          bash get_data_from_osf.sh ds114_test1
+          bash get_data_from_osf.sh ds114_test2
     - run:
         name: Build Docker image
         command: |
           wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/build_docker.sh
-          bash build_docker.sh         
+          bash build_docker.sh
         no_output_timeout: 6h
     - save_cache:
         key: my_cache
@@ -106,7 +106,7 @@ jobs:
         name: push to dockerhub
         command: |
           wget https://raw.githubusercontent.com/bids-apps/maintenance-tools/main/circleci/push_docker.sh
-          bash push_docker.sh  
+          bash push_docker.sh
 
 workflows:
   build-test-deploy:
