@@ -118,5 +118,3 @@ workflows:
         filters:
           tags:
             only: /.*/
-
-# VS Code Extension Version: 1.5.1
