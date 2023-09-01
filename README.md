@@ -24,32 +24,27 @@ Describe how would you would like users to acknowledge use of your App in their 
 ### Usage
 This App has the following command line arguments:
 
-		usage: run.py [-h]
-		              [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
-		              bids_dir output_dir {participant,group}
+	usage: run.py [-h] [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]] [--skip_bids_validator] [-v]
+				bids_dir output_dir {participant,group}
 
-		Example BIDS App entry point script.
+	Example BIDS App entrypoint script.
 
-		positional arguments:
-		  bids_dir              The directory with the input dataset formatted
-		                        according to the BIDS standard.
-		  output_dir            The directory where the output files should be stored.
-		                        If you are running a group level analysis, this folder
-		                        should be prepopulated with the results of
-		                        the participant level analysis.
-		  {participant,group}   Level of the analysis that will be performed. Multiple
-		                        participant level analyses can be run independently
-		                        (in parallel).
+	positional arguments:
+	bids_dir              The directory with the input dataset formatted according to the BIDS standard.
+	output_dir            The directory where the output files should be stored. If you are running group level analysis this folder should
+							be prepopulated with the results of theparticipant level analysis.
+	{participant,group}   Level of the analysis that will be performed. Multiple participant level analyses can be run independently (in
+							parallel) using the same output_dir.
 
-		optional arguments:
-		  -h, --help            show this help message and exit
-		  --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
-		                        The label(s) of the participant(s) that should be
-		                        analyzed. The label corresponds to
-		                        sub-<participant_label> from the BIDS spec (so it does
-		                        not include "sub-"). If this parameter is not provided
-		                        all subjects will be analyzed. Multiple participants
-		                        can be specified with a space separated list.
+	options:
+	-h, --help            show this help message and exit
+	--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
+							The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-<participant_label> from
+							the BIDS spec (so it does not include "sub-"). If this parameter is not provided all subjects should be analyzed.
+							Multiple participants can be specified with a space separated list.
+	--skip_bids_validator
+							Whether or not to perform BIDS dataset validation
+	-v, --version         show program's version number and exit
 
 To run it in participant level mode (for one participant):
 
