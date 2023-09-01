@@ -7,8 +7,7 @@ RUN apt-get update -qq && \
     apt-get install -q -y --no-install-recommends \
         python3 \
         python3-pip \
-        python3-numpy && \
-    pip3 install nibabel && \
+    pip3 install nibabel numpy && \
     apt-get remove -y python3-pip && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
