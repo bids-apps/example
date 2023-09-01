@@ -43,14 +43,18 @@ parser.add_argument('--participant_label', help='The label(s) of the participant
                    nargs="+")
 parser.add_argument('--skip_bids_validator', help='Whether or not to perform BIDS dataset validation',
                    action='store_true')
-parser.add_argument('-v', '--version', action='version',
-                    version='BIDS-App example version {}'.format(__version__))
+parser.add_argument(
+    '-v',
+    '--version',
+    action='version',
+    version=f'BIDS-App example version {__version__}',
+)
 
 
 args = parser.parse_args()
 
 if not args.skip_bids_validator:
-    run('bids-validator %s'%args.bids_dir)
+    run(f'bids-validator {args.bids_dir}')
 
 subjects_to_analyze = []
 # only for a subset of subjects
@@ -66,19 +70,18 @@ if args.analysis_level == "participant":
 
     # find all T1s and skullstrip them
     for subject_label in subjects_to_analyze:
-        for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
-                                         "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
+        for T1_file in (glob(os.path.join(args.bids_dir, f"sub-{subject_label}", "anat", "*_T1w.nii*"))
+                        + glob(os.path.join(args.bids_dir, f"sub-{subject_label}", "ses-*", "anat", "*_T1w.nii*"))):
             out_file = os.path.split(T1_file)[-1].replace("_T1w.", "_brain.")
-            cmd = "bet %s %s"%(T1_file, os.path.join(args.output_dir, out_file))
+            cmd = f"bet {T1_file} {os.path.join(args.output_dir, out_file)}"
             print(cmd)
             run(cmd)
 
-# running group level
 elif args.analysis_level == "group":
     brain_sizes = []
     for subject_label in subjects_to_analyze:
-        for brain_file in glob(os.path.join(args.output_dir, "sub-%s*.nii*"%subject_label)):
-            data = nibabel.load(brain_file).get_data()
+        for brain_file in glob(os.path.join(args.output_dir, f"sub-{subject_label}*.nii*")):
+            data = nibabel.load(brain_file).get_fdata()
             # calcualte average mask size in voxels
             brain_sizes.append((data != 0).sum())
 
