@@ -6,7 +6,7 @@
         "type": "docker"
     },
     "description": "See https://github.com/BIDS-Apps/example",
-    "descriptor-url": "https://github.com/BIDS-Apps/example/blob/master/boutiques/bids-app-example.json", 
+    "descriptor-url": "https://github.com/BIDS-Apps/example/blob/master/boutiques/bids-app-example.json",
     "groups": [
         {
             "description": "For a participants analysis, an output directory name must be specified. For a group analysis, a directory containing the output of participant-level analyses must be selected. ",
@@ -163,7 +163,7 @@
     "schema-version": "0.5",
     "tags": {
         "domain": [
-            "neuroinformatics", 
+            "neuroinformatics",
             "testing"
         ]
     },
