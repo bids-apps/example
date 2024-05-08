@@ -32,5 +32,21 @@ repos:
     types: [dockerfile]
     entry: ghcr.io/hadolint/hadolint hadolint
 
+# Aplly black formatting to python code
+# https://github.com/psf/black
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 24.4.2
+  hooks:
+  - id: black
+    args: [--config, pyproject.toml]
+
+# Checks for spelling errors
+- repo: https://github.com/codespell-project/codespell
+  rev: v2.2.6
+  hooks:
+  - id: codespell
+    args: [--toml, pyproject.toml]
+    additional_dependencies: [tomli]
+
 ci:
   skip: [hadolint-docker]
