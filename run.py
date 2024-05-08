@@ -4,11 +4,11 @@ import os
 import subprocess
 import nibabel
 import numpy
+import sys
 from glob import glob
+from pathlib import Path
 
-__version__ = open(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), "version")
-).read()
+__version__ = open(Path(__file__).parent / "version").read()
 
 
 def run(command, env=None):
@@ -38,35 +38,35 @@ def return_parser():
     )
     parser.add_argument(
         "bids_dir",
-        help="The directory with the input dataset "
-        "formatted according to the BIDS standard.",
+        help="The directory with the input dataset formatted according to the BIDS standard.",
     )
     parser.add_argument(
         "output_dir",
-        help="The directory where the output files "
-        "should be stored. If you are running group level analysis "
-        "this folder should be prepopulated with the results of the"
-        "participant level analysis.",
+        help="""
+The directory where the output files should be stored.
+If you are running group level analysis this folder should be prepopulated
+with the results of the participant level analysis.""",
     )
     parser.add_argument(
         "analysis_level",
-        help="Level of the analysis that will be performed. "
-        "Multiple participant level analyses can be run independently "
-        "(in parallel) using the same output_dir.",
+        help="""
+Level of the analysis that will be performed. 
+Multiple participant level analyses can be run independently 
+in parallel) using the same output_dir.""",
         choices=["participant", "group"],
     )
     parser.add_argument(
         "--participant_label",
-        help="The label(s) of the participant(s) that should be analyzed. The label "
-        "corresponds to sub-<participant_label> from the BIDS spec "
-        '(so it does not include "sub-"). If this parameter is not '
-        "provided all subjects should be analyzed. Multiple "
-        "participants can be specified with a space separated list.",
+        help="""
+The label(s) of the participant(s) that should be analyzed.
+The label corresponds to sub-<participant_label> from the BIDS spec
+(so it does not include "sub-"). If this parameter is not provided all subjects should be analyzed.
+Multiple participants can be specified with a space separated list.""",
         nargs="+",
     )
     parser.add_argument(
         "--skip_bids_validator",
-        help="Whether or not to perform BIDS dataset validation",
+        help="Whether or not to perform BIDS dataset validation.",
         action="store_true",
     )
     parser.add_argument(
@@ -77,10 +77,14 @@ def return_parser():
     )
     return parser
 
-def main():
+def main(argv = sys.argv):
 
     parser = return_parser()
-    args = parser.parse_args()
+    args, unknowns = parser.parse_known_args(argv[1:])
+
+    if unknowns:
+        print(f"The following arguments are unknown: {unknowns}")
+        exit(1)
 
     if not args.skip_bids_validator:
         run(f"bids-validator {args.bids_dir}")
@@ -119,6 +123,8 @@ def main():
                 print(cmd)
                 run(cmd)
 
+        exit(0)
+
     elif args.analysis_level == "group":
         brain_sizes = []
         for subject_label in subjects_to_analyze:
@@ -133,3 +139,8 @@ def main():
             fp.write(
                 "Average brain size is %g voxels" % numpy.array(brain_sizes).mean()
             )
+
+        exit(0)
+
+if __name__ == "__main__":
+    main()
