@@ -86,7 +86,7 @@ def main(argv=sys.argv):
 
     if unknowns:
         print(f"The following arguments are unknown: {unknowns}")
-        exit(1)
+        exit(64)
 
     if not args.skip_bids_validator:
         run(f"bids-validator {args.bids_dir}")
