@@ -54,7 +54,8 @@
                 "participant",
                 "group"
             ],
-            "value-key": "ANALYSIS_LEVEL"
+            "value-key": "ANALYSIS_LEVEL",
+            "optional": false
         },
         {
             "command-line-flag": "--participant_label",
