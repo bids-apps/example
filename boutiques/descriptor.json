@@ -9,7 +9,7 @@
         "type": "docker"
     },
     "description": "See https://github.com/BIDS-Apps/example",
-    "descriptor-url": "https://github.com/BIDS-Apps/example/blob/master/boutiques/descriptorjson",
+    "descriptor-url": "https://github.com/BIDS-Apps/example/blob/master/boutiques/descriptor.json",
     "groups": [
         {
             "description": "For a participants analysis, an output directory name must be specified. For a group analysis, a directory containing the output of participant-level analyses must be selected.",
