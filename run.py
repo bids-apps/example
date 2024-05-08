@@ -32,6 +32,7 @@ def run(command, env=None):
     if process.returncode != 0:
         raise Exception("Non zero return code: %d" % process.returncode)
 
+
 def return_parser():
     parser = argparse.ArgumentParser(
         description="Example BIDS App entrypoint script."
@@ -50,8 +51,8 @@ with the results of the participant level analysis.""",
     parser.add_argument(
         "analysis_level",
         help="""
-Level of the analysis that will be performed. 
-Multiple participant level analyses can be run independently 
+Level of the analysis that will be performed.
+Multiple participant level analyses can be run independently
 in parallel) using the same output_dir.""",
         choices=["participant", "group"],
     )
@@ -77,7 +78,8 @@ Multiple participants can be specified with a space separated list.""",
     )
     return parser
 
-def main(argv = sys.argv):
+
+def main(argv=sys.argv):
 
     parser = return_parser()
     args, unknowns = parser.parse_known_args(argv[1:])
@@ -118,8 +120,12 @@ def main(argv = sys.argv):
                     "*_T1w.nii*",
                 )
             ):
-                out_file = os.path.split(T1_file)[-1].replace("_T1w.", "_brain.")
-                cmd = f"bet {T1_file} {os.path.join(args.output_dir, out_file)}"
+                out_file = os.path.split(T1_file)[-1].replace(
+                    "_T1w.", "_brain."
+                )
+                cmd = (
+                    f"bet {T1_file} {os.path.join(args.output_dir, out_file)}"
+                )
                 print(cmd)
                 run(cmd)
 
@@ -135,12 +141,16 @@ def main(argv = sys.argv):
                 # calculate average mask size in voxels
                 brain_sizes.append((data != 0).sum())
 
-        with open(os.path.join(args.output_dir, "avg_brain_size.txt"), "w") as fp:
+        with open(
+            os.path.join(args.output_dir, "avg_brain_size.txt"), "w"
+        ) as fp:
             fp.write(
-                "Average brain size is %g voxels" % numpy.array(brain_sizes).mean()
+                "Average brain size is %g voxels"
+                % numpy.array(brain_sizes).mean()
             )
 
         exit(0)
+
 
 if __name__ == "__main__":
     main()
