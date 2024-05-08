@@ -25,4 +25,4 @@ jobs:
     - name: Install
       run: pip install boutiques
     - name: Validate
-      run: bosh validate boutiques/bids-app-example.json
+      run: bosh validate boutiques/descriptor.json
