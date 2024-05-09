@@ -50,6 +50,8 @@ jobs:
 
     - run: mkdir -p ${HOME}/outputs<< parameters.dataset >>
 
+    - run: sudo apt-get install tree
+
     - run:
         name: print version
         command: |
