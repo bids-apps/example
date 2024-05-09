@@ -67,7 +67,6 @@ jobs:
             -v ${HOME}/outputs<< parameters.dataset >>:/outputs \
               bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant
           tree ${HOME}/outputs<< parameters.dataset >>
-        no_output_timeout: 6h
 
     - run:
         name: group level test
@@ -77,10 +76,6 @@ jobs:
             -v ${HOME}/outputs<< parameters.dataset >>:/outputs \
               bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs group
           tree ${HOME}/outputs<< parameters.dataset >>
-        no_output_timeout: 6h
-
-    - store_artifacts:
-        path: ~/output<< parameters.dataset >>
 
   deploy:
     machine:
