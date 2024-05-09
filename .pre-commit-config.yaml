@@ -14,13 +14,11 @@ repos:
   - id: check-case-conflict
   - id: check-merge-conflict
 
-
 - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
   rev: 0.2.3
   hooks:
   - id: yamlfmt
     args: [--mapping, '2', --sequence, '2', --offset, '0']
-
 
 - repo: https://github.com/hadolint/hadolint
   rev: v2.13.0-beta
@@ -31,6 +29,11 @@ repos:
     language: docker_image
     types: [dockerfile]
     entry: ghcr.io/hadolint/hadolint hadolint
+
+- repo: https://github.com/pycqa/isort
+  rev: 5.13.2
+  hooks:
+  - id: isort
 
 # Aplly black formatting to python code
 # https://github.com/psf/black

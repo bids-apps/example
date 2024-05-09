@@ -1,10 +1,7 @@
 [tool.black]
-# 'extend-exclude' excludes files or directories in addition to the defaults
 line-length = 79
 
-# [tool.codespell]
-# ignore-words = ".github/codespell_ignore_words.txt"
-# skip = ""
+[tool.codespell]
 
 [tool.isort]
 combine_as_imports = true

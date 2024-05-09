@@ -2,11 +2,12 @@
 import argparse
 import os
 import subprocess
-import nibabel
-import numpy
 import sys
 from glob import glob
 from pathlib import Path
+
+import nibabel
+import numpy
 
 __version__ = open(Path(__file__).parent / "version").read()
 
@@ -145,8 +146,10 @@ def main(argv=sys.argv):
             os.path.join(args.output_dir, "avg_brain_size.txt"), "w"
         ) as fp:
             fp.write(
-                "Average brain size is %g voxels"
-                % numpy.array(brain_sizes).mean()
+                f"Average brain size is {numpy.array(brain_sizes).mean()} voxels"
+            )
+            print(
+                f"Results were saved in {Path(args.output_dir) / 'avg_brain_size.txt'}"
             )
 
         exit(0)

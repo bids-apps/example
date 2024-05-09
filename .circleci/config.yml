@@ -57,35 +57,30 @@ jobs:
             -v /tmp/workspace/data/ds114_test1:/bids_dataset \
               bids/${CIRCLE_PROJECT_REPONAME,,} --version
 
-        # participant level tests for single session dataset
     - run:
+        name: participant level test
         command: |
           docker run -ti --rm --read-only \
             -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
             -v ${HOME}/outputs<< parameters.dataset >>:/outputs \
-              bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 01
-        no_output_timeout: 6h
-    - run:
-        command: |
-          docker run -ti --rm --read-only \
-            -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-            -v ${HOME}/outputs<< parameters.dataset >>:/outputs \
-              bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant --participant_label 02
+              bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs participant
+          tree ${HOME}/outputs<< parameters.dataset >>
         no_output_timeout: 6h
 
     - run:
+        name: group level test
         command: |
           docker run -ti --rm --read-only \
             -v /tmp/workspace/data/ds114_test<< parameters.dataset >>:/bids_dataset \
-            -v ${HOME}/outputs1:/outputs \
+            -v ${HOME}/outputs<< parameters.dataset >>:/outputs \
               bids/${CIRCLE_PROJECT_REPONAME,,} /bids_dataset /outputs group
+          tree ${HOME}/outputs<< parameters.dataset >>
         no_output_timeout: 6h
 
     - store_artifacts:
         path: ~/output<< parameters.dataset >>
 
   deploy:
-
     machine:
       image: ubuntu-2204:2022.10.2
 
